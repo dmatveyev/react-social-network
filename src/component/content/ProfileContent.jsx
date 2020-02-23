@@ -4,12 +4,14 @@ import MyPosts from "./myposts/MyPosts";
 import ProfileInfo from "./profileinfo/ProfileInfo";
 
 
-
 const ProfileContent = (props) => {
+    let myPosts = props.content.myPosts;
+    let infoDesc = props.content.infoDesc;
+
     return (
         <div className={styles.profile}>
-            <ProfileInfo />
-            <MyPosts/>
+            <ProfileInfo infoDesc={infoDesc}/>
+            <MyPosts myPosts={myPosts}/>
         </div>)
 };
 

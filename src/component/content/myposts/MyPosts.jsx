@@ -4,10 +4,7 @@ import styles from "./MyPosts.module.css"
 
 const MyPosts = (props) => {
 
-    let myPosts = [
-        {message: "Hello!!!", likes: 5},
-        {message: "What is your favorite singer?", likes: 33},
-    ];
+    let myPosts = props.myPosts;
     return (
         <div className={styles.posts}>
             <h3 className={styles.posts_header}>My Posts</h3>

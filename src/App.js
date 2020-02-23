@@ -9,18 +9,30 @@ import News from "./component/news/News";
 import Music from "./component/music/Music";
 import Settings from "./component/settings/Settings";
 
-const App = () => {
+const App = (props) => {
+    let dialogsUsers = props.data.dialog.dialogsUsers;
+    let dialogMessages = props.data.dialog.dialogMessages;
+    let content = props.data.content;
+
+    function getProfile(content) {
+        return () => <ProfileContent content={content}/>;
+    }
+
+    const getDialogs = (dialogsUsers, dialogMessages) => {
+        return () => <Dialogs dialogsUsers={dialogsUsers} dialogMessages={dialogMessages}/>
+    };
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile" component={ProfileContent} />
-                    <Route path="/dialogs" component={Dialogs} />
-                    <Route path="/news" component={News} />
-                    <Route path="/music" component={Music} />
-                    <Route path="/settings" component={Settings} />
+                    <Route path="/profile" component={getProfile(content)}/>
+                    <Route path="/dialogs" component={getDialogs(dialogsUsers, dialogMessages)}/>
+                    <Route path="/news" render={() => <News/>}/>
+                    <Route path="/music" render={() => <Music/>}/>
+                    <Route path="/settings" render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>

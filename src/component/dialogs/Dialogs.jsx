@@ -1,59 +1,23 @@
 import React from "react";
 import styles from "./Dialogs.module.css"
-import {NavLink} from "react-router-dom"
-
-const DialogItem = (props) => {
-    let path = "/dialogs/" + props.conv_id;
-    return (
-        <div className={styles.dialog}>
-            <NavLink to={path}>
-                {props.userName}
-            </NavLink>
-        </div>
-    )
-};
-
-const Message = (props) => {
-
-    return (
-        <div className={styles.message}>{props.userMessage}</div>
-    )
-};
+import {Message} from "./message/Message";
+import {DialogItem} from "./dialogitem/DialogItem";
 
 const Dialogs = (props) => {
 
-    let dialogsData = //props.dialogsData;
-        [
-            {id: 1, name: "Den"},
-            {id: 2, name: "Julia"},
-            {id: 3, name: "Helga"},
-            {id: 4, name: "Helen"},
-        ];
+    let dialogsData = props.dialogsUsers;
+    let messagesData = props.dialogMessages
 
-    let messagesData = [
-        {message:"Hi"},
-        {message:"Who ara you?"},
-        {message:"WTF?!?!?!?"},
-    ];
+    let dialogElements = dialogsData.map(userData => <DialogItem userName={userData.name} conv_id={userData.id}/>);
+    let messagesElements = messagesData.map(message => <Message userMessage={message}/>);
 
     return (
-
         <div className={styles.dialogs}>
             <div className={styles.dialogs_items}>
-                <DialogItem userName={dialogsData[0].name}
-                            conv_id= {dialogsData[0].id}/>
-                <DialogItem userName={dialogsData[1].name}
-                            conv_id= {dialogsData[1].id}/>
-                <DialogItem userName={dialogsData[2].name}
-                            conv_id= {dialogsData[2].id}/>
-                <DialogItem userName={dialogsData[3].name}
-                            conv_id= {dialogsData[3].id}/>
+                {dialogElements}
             </div>
             <div className={styles.messages}>
-                <Message userMessage={messagesData[0].message}/>
-                <Message userMessage={messagesData[1].message}/>
-                <Message userMessage={messagesData[2].message}/>
-
+                {messagesElements}
             </div>
         </div>
     )
