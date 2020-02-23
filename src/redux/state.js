@@ -1,5 +1,7 @@
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 let store = {
     _state: {
@@ -9,12 +11,12 @@ let store = {
                 {id: 2, name: "Julia", ava: "https://klike.net/uploads/posts/2019-03/medium/1551511784_4.jpg"},
                 {id: 3, name: "Helga", ava: "https://klike.net/uploads/posts/2019-03/1551511808_5.jpg"},
                 {id: 4, name: "Helen", ava: "https://klike.net/uploads/posts/2019-03/medium/1551511789_7.jpg"},
-                {id: 4, name: "Helen", ava: "https://klike.net/uploads/posts/2019-03/medium/1551511789_7.jpg"},
             ],
             dialogMessages: [
                 {message: "Hi"},
                 {message: "Who are you?"},
-                {message: "WTF?!?!?!?"}]
+                {message: "WTF?!?!?!?"}],
+            newMessageBody: ""
         },
         content: {
             infoDesc: {
@@ -45,6 +47,10 @@ let store = {
         this._state.content.newPostText = newText;
         this._rerenderEntireTree(this._state);
     },
+    _updateMessageBody(newBody) {
+        this._state.messages.newMessageBody = newBody;
+        this._rerenderEntireTree(this._state);
+    },
     getState() {
         return this._state;
     },
@@ -52,13 +58,27 @@ let store = {
         this._rerenderEntireTree = observer;
     },
     dispatch(action) {
+        debugger;
         switch (action.type) {
+
             case ADD_POST:
                 this._addPost();
                 break;
             case UPDATE_NEW_POST_TEXT:
                 this._updateNewPostText(action.newText);
                 break;
+            case UPDATE_NEW_MESSAGE_BODY:
+                this._updateMessageBody(action.newMessageBody);
+                break;
+            case SEND_MESSAGE: {
+                let body = this._state.messages.newMessageBody;
+                this._state.messages.dialogMessages.push(
+                    {message: body}
+                );
+                this._updateMessageBody('');
+                this._rerenderEntireTree(this._state);
+                break;
+            }
             default:
                 console.log('Action not supported!!')
         }
@@ -69,6 +89,16 @@ export const updateNewPostTextActionCreator = (text) =>
     ({
         type: UPDATE_NEW_POST_TEXT,
         newText: text
+    });
+export const addMessageCreator = (text) =>
+    ({
+        type: UPDATE_NEW_MESSAGE_BODY,
+        newMessageBody: text
+    });
+
+export const sendMessageCreator = () =>
+    ({
+        type: SEND_MESSAGE
     });
 
 export default store;

@@ -10,6 +10,7 @@ import Music from "./component/music/Music";
 import Settings from "./component/settings/Settings";
 
 const App = (props) => {
+    debugger;
     let messages = props.state.messages;
     let content = props.state.content;
 
@@ -18,8 +19,8 @@ const App = (props) => {
                                      dispatch={dispatch}/>;
     }
 
-    const getDialogs = (messages) => {
-        return () => <Dialogs messages={messages}/>
+    const getDialogs = (messages, dispatch) => {
+        return () => <Dialogs messages={messages} dispatch={dispatch}/>
     };
 
     return (
@@ -29,7 +30,7 @@ const App = (props) => {
             <div className="app-wrapper-content">
                 <Route path="/profile" component={getProfile(content,
                     props.dispatch)}/>
-                <Route path="/dialogs" component={getDialogs(messages)}/>
+                <Route path="/dialogs" component={getDialogs(messages, props.dispatch)}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
                 <Route path="/settings" render={() => <Settings/>}/>

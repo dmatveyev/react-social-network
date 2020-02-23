@@ -9,7 +9,7 @@ const ProfileContent = (props) => {
     let infoDesc = props.content.infoDesc;
 
     return (
-        <div className={styles.profile}>
+        <div>
             <ProfileInfo infoDesc={infoDesc}/>
             <MyPosts ava={infoDesc.ava} myPosts={myPosts}
                      dispatch={props.dispatch}
