@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./Post.module.css";
 
 const Post = (props) => {
+    let ava = props.ava;
     return (
         <div className={styles.item}>
             <div>
-                <img alt="" className={styles.ava} src="https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"/>
+                <img alt="" className={styles.ava} src={ava}/>
                 <text className={styles.label}>{props.message}</text>
             </div>
             <div>

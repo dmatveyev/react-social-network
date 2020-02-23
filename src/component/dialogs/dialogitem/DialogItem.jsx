@@ -3,11 +3,15 @@ import {NavLink} from "react-router-dom";
 import React from "react";
 
 export const DialogItem = (props) => {
-    let path = "/dialogs/" + props.conv_id;
+    let dialogsUsers = props.dialogData;
+    let path = "/dialogs/" + dialogsUsers.id;
     return (
         <div className={styles.dialog}>
             <NavLink to={path}>
-                {props.userName}
+                <div>
+                    <img className={styles.dialog_ava} src={dialogsUsers.ava}/>
+                </div>
+                {dialogsUsers.name}
             </NavLink>
         </div>
     )

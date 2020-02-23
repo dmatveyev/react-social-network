@@ -10,16 +10,15 @@ import Music from "./component/music/Music";
 import Settings from "./component/settings/Settings";
 
 const App = (props) => {
-    let dialogsUsers = props.data.dialog.dialogsUsers;
-    let dialogMessages = props.data.dialog.dialogMessages;
-    let content = props.data.content;
+    let messages = props.state.messages;
+    let content = props.state.content;
 
     function getProfile(content) {
         return () => <ProfileContent content={content}/>;
     }
 
-    const getDialogs = (dialogsUsers, dialogMessages) => {
-        return () => <Dialogs dialogsUsers={dialogsUsers} dialogMessages={dialogMessages}/>
+    const getDialogs = (messages) => {
+        return () => <Dialogs messages={messages}/>
     };
 
     return (
@@ -29,7 +28,7 @@ const App = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" component={getProfile(content)}/>
-                    <Route path="/dialogs" component={getDialogs(dialogsUsers, dialogMessages)}/>
+                    <Route path="/dialogs" component={getDialogs(messages)}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>

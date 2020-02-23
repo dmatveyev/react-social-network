@@ -11,7 +11,7 @@ const ProfileContent = (props) => {
     return (
         <div className={styles.profile}>
             <ProfileInfo infoDesc={infoDesc}/>
-            <MyPosts myPosts={myPosts}/>
+            <MyPosts ava={infoDesc.ava} myPosts={myPosts}/>
         </div>)
 };
 
