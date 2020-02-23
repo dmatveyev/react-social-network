@@ -5,6 +5,10 @@ export const Message = (props) => {
     let userMessages = props.userMessage.message;
 
     return (
-        <div className={styles.message}>{userMessages}</div>
+        <div className={styles.message}>
+            <label>
+                {userMessages}
+            </label>
+        </div>
     )
 };

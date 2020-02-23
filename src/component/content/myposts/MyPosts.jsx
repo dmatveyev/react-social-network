@@ -10,7 +10,12 @@ const MyPosts = (props) => {
     let posts = myPosts.map(p => <Post ava={props.ava} message={p.message} likeCount={p.likes}/>);
 
     let clicked = () => {
-        alert(newPostElem.current.value);
+        props.addPost();
+    };
+
+    let onPostChange = () => {
+        let text = newPostElem.current.value;
+        props.updateNewPostText(text);
     };
 
     return (
@@ -18,7 +23,7 @@ const MyPosts = (props) => {
             <h3 className={styles.posts_header}>My Posts</h3>
             <div className={styles.new_post}>
                 <div>
-                    <textarea ref={newPostElem}></textarea>
+                    <textarea ref={newPostElem} onChange={onPostChange} value={props.newPost}/>
                 </div>
                 <div>
                     <button onClick={clicked}>Add post</button>

@@ -13,8 +13,10 @@ const App = (props) => {
     let messages = props.state.messages;
     let content = props.state.content;
 
-    function getProfile(content) {
-        return () => <ProfileContent content={content}/>;
+    function getProfile(content, addPost, updateNewPostText) {
+        return () => <ProfileContent content={content}
+                                     addPost={addPost}
+                                     updateNewPostText={updateNewPostText}/>;
     }
 
     const getDialogs = (messages) => {
@@ -22,20 +24,18 @@ const App = (props) => {
     };
 
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path="/profile" component={getProfile(content)}/>
-                    <Route path="/dialogs" component={getDialogs(messages)}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className="app-wrapper-content">
+                <Route path="/profile" component={getProfile(content,
+                    props.addPost, props.updateNewPostText)}/>
+                <Route path="/dialogs" component={getDialogs(messages)}/>
+                <Route path="/news" render={() => <News/>}/>
+                <Route path="/music" render={() => <Music/>}/>
+                <Route path="/settings" render={() => <Settings/>}/>
             </div>
-        </BrowserRouter>
-
+        </div>
     );
 };
 

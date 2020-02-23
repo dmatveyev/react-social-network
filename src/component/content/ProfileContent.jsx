@@ -11,7 +11,9 @@ const ProfileContent = (props) => {
     return (
         <div className={styles.profile}>
             <ProfileInfo infoDesc={infoDesc}/>
-            <MyPosts ava={infoDesc.ava} myPosts={myPosts}/>
+            <MyPosts ava={infoDesc.ava} myPosts={myPosts} addPost={props.addPost}
+                     updateNewPostText={props.updateNewPostText}
+                     newPost={props.content.newPostText}/>
         </div>)
 };
 
