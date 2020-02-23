@@ -9,7 +9,7 @@ export const DialogItem = (props) => {
         <div className={styles.dialog}>
             <NavLink to={path}>
                 <div>
-                    <img className={styles.dialog_ava} src={dialogsUsers.ava}/>
+                    <img alt="" className={styles.dialog_ava} src={dialogsUsers.ava}/>
                 </div>
                 {dialogsUsers.name}
             </NavLink>

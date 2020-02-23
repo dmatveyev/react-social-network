@@ -5,17 +5,19 @@ import styles from "./MyPosts.module.css"
 const MyPosts = (props) => {
 
     let newPostElem = React.createRef();
-
     let myPosts = props.myPosts;
     let posts = myPosts.map(p => <Post ava={props.ava} message={p.message} likeCount={p.likes}/>);
 
     let clicked = () => {
-        props.addPost();
+        props.dispatch({type: 'ADD_POST'});
     };
 
     let onPostChange = () => {
         let text = newPostElem.current.value;
-        props.updateNewPostText(text);
+        props.dispatch({
+            type: 'UPDATE_NEW_POST_TEXT',
+            newText: text
+        });
     };
 
     return (
