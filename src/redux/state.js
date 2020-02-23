@@ -1,3 +1,6 @@
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const ADD_POST = 'ADD_POST';
+
 let store = {
     _state: {
         messages: {
@@ -50,10 +53,10 @@ let store = {
     },
     dispatch(action) {
         switch (action.type) {
-            case 'ADD_POST':
+            case ADD_POST:
                 this._addPost();
                 break;
-            case 'UPDATE_NEW_POST_TEXT':
+            case UPDATE_NEW_POST_TEXT:
                 this._updateNewPostText(action.newText);
                 break;
             default:
@@ -61,5 +64,11 @@ let store = {
         }
     }
 };
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const updateNewPostTextActionCreator = (text) =>
+    ({
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
+    });
 
 export default store;
