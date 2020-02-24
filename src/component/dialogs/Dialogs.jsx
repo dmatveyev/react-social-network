@@ -5,8 +5,8 @@ import {DialogItem} from "./dialogitem/DialogItem";
 import {NewMessage} from "./NewDialogMessage";
 
 const Dialogs = (props) => {
-    let dialogsData = props.messages.dialogsUsers;
-    let messagesData = props.messages.dialogMessages;
+    let dialogsData = props.dialogsUsers;
+    let messagesData = props.dialogMessages;
 
     let dialogElements = dialogsData.map(userData => <DialogItem dialogData={userData}/>);
     let messagesElements = messagesData.map(message => <Message userMessage={message}/>);
@@ -18,7 +18,9 @@ const Dialogs = (props) => {
                 {dialogElements}
             </div>
             <div className={styles.messages}>
-                <NewMessage newMessageBody={props.messages.newMessageBody} dispatch={props.dispatch}/>
+                <NewMessage newMessageBody={props.newMessageBody}
+                            addMessage={props.addMessage}
+                            updateNewMessageBody={props.updateNewMessageBody}/>
 
                 {messagesElements}
             </div>

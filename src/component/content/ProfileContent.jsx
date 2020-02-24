@@ -1,19 +1,17 @@
 import React from "react";
-import MyPosts from "./myposts/MyPosts";
 import ProfileInfo from "./profileinfo/ProfileInfo";
+import MyPostsContainer from "./myposts/MyPostsContainer";
+import StoreContext from "../../redux/store-context";
 
 
 const ProfileContent = (props) => {
-    let myPosts = props.content.myPosts;
-    let infoDesc = props.content.infoDesc;
 
     return (
         <div>
-            <ProfileInfo infoDesc={infoDesc}/>
-            <MyPosts ava={infoDesc.ava} myPosts={myPosts}
-                     dispatch={props.dispatch}
-                     newPost={props.content.newPostText}/>
-        </div>)
+            <ProfileInfo/>
+            <MyPostsContainer/>
+        </div>
+    )
 };
 
 export default ProfileContent

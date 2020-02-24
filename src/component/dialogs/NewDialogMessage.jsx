@@ -1,17 +1,13 @@
 import React from "react";
-import {addMessageCreator, sendMessageCreator} from "../../redux/dialog-reducer";
 
 export const NewMessage = (props) => {
 
     let onChangeValue = (event) => {
-        let value = event.target.value;
-        let action = addMessageCreator(value);
-        props.dispatch(action);
+        props.updateNewMessageBody(event);
     };
 
     let sendMessage = () => {
-        const action = sendMessageCreator();
-        props.dispatch(action);
+        props.addMessage();
     };
 
     return (
