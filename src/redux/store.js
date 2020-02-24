@@ -32,21 +32,21 @@ let store = {
         },
         sidebar: {}
     },
-    _rerenderEntireTree() {
+    _callSubscriber() {
         console.log('State has been changed!!!')
     },
     getState() {
         return this._state;
     },
     subscribe(observer) {
-        this._rerenderEntireTree = observer;
+        this._callSubscriber = observer;
     },
     dispatch(action) {
         this._state.content = contentReducer(this._state.content, action);
         this._state.messages = dialogReducer(this._state.messages, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
 
-        this._rerenderEntireTree(this._state)
+        this._callSubscriber(this._state)
     }
 };
 
