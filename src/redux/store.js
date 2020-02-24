@@ -2,8 +2,7 @@ import contentReducer from "./content-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import dialogReducer from "./dialog-reducer";
 
-
-let store = {
+export let store = {
     _state: {
         messages: {
             dialogsUsers: [
@@ -50,4 +49,3 @@ let store = {
     }
 };
 
-export default store;
