@@ -1,7 +1,6 @@
 import React from "react";
 
 export const NewMessage = (props) => {
-
     let onChangeValue = (event) => {
         props.updateNewMessageBody(event);
     };

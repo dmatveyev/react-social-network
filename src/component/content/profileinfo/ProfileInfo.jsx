@@ -1,31 +1,31 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css"
-import StoreContext from "../../../redux/store-context";
+import {connect} from "react-redux";
 
-
-const ProfileInfo = (props) => {
-
+let Info = (props) => {
+    let iDesc = props.infoDesc;
     return (
-        <StoreContext.Consumer>{
-            (store) => {
-                let infoDesc = store.getState().content.infoDesc;
-                return (
-                    <div>
-                        <div>
-                            <img alt="" src={infoDesc.headerTheme}/>
-                        </div>
-                        <div className={styles.description}>
-                            {infoDesc.description}
-                        </div>
-                    </div>
-                )
-            }
-        }
-
-
-        </StoreContext.Consumer>
-
+        <div>
+            <div>
+                <img alt="" src={iDesc.headerTheme}/>
+            </div>
+            <div className={styles.description}>
+                {iDesc.description}
+            </div>
+        </div>
     )
 };
+
+function mapStateToProps(state) {
+    return {
+        infoDesc: state.content.infoDesc
+    };
+}
+
+function mapDispatchToProps() {
+    return {};
+}
+
+let ProfileInfo = connect(mapStateToProps, mapDispatchToProps)(Info);
 
 export default ProfileInfo

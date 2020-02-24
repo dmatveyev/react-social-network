@@ -8,8 +8,10 @@ const Dialogs = (props) => {
     let dialogsData = props.dialogsUsers;
     let messagesData = props.dialogMessages;
 
-    let dialogElements = dialogsData.map(userData => <DialogItem dialogData={userData}/>);
-    let messagesElements = messagesData.map(message => <Message userMessage={message}/>);
+    let dialogElements = dialogsData.map(userData =>
+        <DialogItem key={userData.name} dialogData={userData}/>);
+    let messagesElements = messagesData.map(message =>
+        <Message key={message.message} userMessage={message}/>);
 
 
     return (
