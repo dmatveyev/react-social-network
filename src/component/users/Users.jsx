@@ -1,51 +1,33 @@
 import React from "react";
 import styles from "./User.module.css"
+import * as axios from "axios";
 
-const Users = (props) => {
+class Users extends React.Component {
 
-    if (props.users.length === 0) {
-        props.setUsers([
-                {
-                    id: "1",
-                    fullName: "Dmitry",
-                    status: "BigBoss",
-                    followed: true,
-                    location: {city: "Moscow", country: "Russia"},
-                    description: "The coolest developer!!!!",
-                    ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"
-                },
-                {
-                    id: "2",
-                    fullName: "Helga",
-                    status: "Teacher",
-                    followed: false,
-                    location: {city: "Samara", country: "Russia"},
-                    description: "The coolest developer!!!!",
-                    ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"
-                }
-            ]
-        );
-    }
+    getUsers = () => {
+        if (this.props.users.length === 0) {
+            axios
+                .get("http://localhost:8080/users")
+                .then(response => {
+                    this.props.setUsers(response.data)
+                });
+        }
+    };
 
-    return (
-        <div>
-            {
-                props.users.map(u => <div key={u.id}>
+    render() {
+        return (<div>
+                <button onClick={this.getUsers}>Get Users</button>
+                {this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
                             <img className={styles.ava} src={u.ava}/>
                         </div>
-                    <div> {
-                        u.followed
-                            ? <button onClick={() => {
-                                props.unFollow(u.id)
-                            }}>UnFollow</button>
-                            : <button onClick={
-                                () => {
-                                    props.followw(u.id)
-                                }
-                            }>Follow</button>
-                    }
+                    <div> {u.followed ? <button onClick={() => {
+                            this.props.unFollow(u.id)
+                        }}>UnFollow</button>
+                        : <button onClick={() => {
+                            this.props.followw(u.id)
+                        }}>Follow</button>}
                     </div>
                     </span>
                     <span>
@@ -59,9 +41,10 @@ const Users = (props) => {
                         </span>
                     </span>
                 </div>)
-            }
-        </div>
-    )
-};
+                }
+            </div>
+        )
+    }
+}
 
 export default Users;

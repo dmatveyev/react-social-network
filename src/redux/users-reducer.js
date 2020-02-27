@@ -7,26 +7,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 let initialState = {
-    users: [
-        {
-            id: "1",
-            fullName: "Dmitry",
-            status: "BigBoss",
-            followed: true,
-            location: {city: "Moscow", country: "Russia"},
-            description: "The coolest developer!!!!",
-            ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"
-        },
-        {
-            id: "2",
-            fullName: "Helga",
-            status: "Teacher",
-            followed: false,
-            location: {city: "Samara", country: "Russia"},
-            description: "The coolest developer!!!!",
-            ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"
-        }
-    ]
+    users: []
 
 };
 
