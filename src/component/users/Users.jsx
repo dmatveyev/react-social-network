@@ -4,19 +4,43 @@ import * as axios from "axios";
 
 class Users extends React.Component {
 
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios
-                .get("http://localhost:8080/users")
-                .then(response => {
-                    this.props.setUsers(response.data)
-                });
-        }
+    getUsers = (page = this.props.currentPage) => {
+        axios
+            .get(`http://localhost:8080/users?page=${page}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.count)
+            });
     };
 
+    onPageChanged = (page) => {
+        this.props.changeUp(page);
+        this.getUsers(page);
+    };
+
+    componentDidMount() {
+        this.getUsers();
+    }
+
     render() {
-        return (<div>
-                <button onClick={this.getUsers}>Get Users</button>
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
+        return (
+            <div>
+                <div>
+                    {pages.map(p => {
+                        return <a className={this.props.currentPage === p && styles.selectedPage} onClick={() => {
+                            this.onPageChanged(p)
+                        }}>
+                            {p}
+                        </a>
+                    })}
+                </div>
                 {this.props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
@@ -32,6 +56,7 @@ class Users extends React.Component {
                     </span>
                     <span>
                         <span>
+                            <div>{u.id}</div>
                             <div>{u.fullName}</div>
                             <div>{u.status}</div>
                         </span>
