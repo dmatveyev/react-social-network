@@ -3,24 +3,9 @@ import styles from "./User.module.css"
 
 let Users = (props) => {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
-
     return (
         <div>
-            <div>
-                {pages.map(p => {
-                    return <span className={props.currentPage === p && styles.selectedPage} onClick={() => {
-                        props.onPageChanged(p)
-                    }}>
-                        {p}
-                    </span>
-                })}
-            </div>
+
             {props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
