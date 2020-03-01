@@ -3,6 +3,20 @@
     background-color: green;
 }
 
-.header img {
+.logo {
     width: 60px;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock a {
+    color: red;
+}
+
+.ava {
+    width: 30px;
+    height: 30px;
+    border-radius: 60px;
 }

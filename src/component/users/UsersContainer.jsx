@@ -17,7 +17,9 @@ class UsersContainer extends React.Component {
 
     getUsers = (page = this.props.currentPage) => {
         axios
-            .get(`http://localhost:8080/users?page=${page}&count=${this.props.pageSize}`)
+            .get(`http://localhost:8080/users?page=${page}&count=${this.props.pageSize}`,  {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.setToggleIsFetching(false);
                 this.props.setUsers(response.data.items);
@@ -47,7 +49,7 @@ class UsersContainer extends React.Component {
                 <Preloader/>
                 :
                 <Users users={this.props.users}
-                       followw={this.props.followw}
+                       follow={this.props.follow}
                        unFollow={this.props.unFollow}
                 />}
         </>

@@ -1,5 +1,6 @@
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState = {
     infoDesc: {
@@ -7,6 +8,7 @@ let initialState = {
         description: "The coolest developer!!!!",
         ava: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"
     },
+    profile: null,
     myPosts: [
         {message: "Hello!!!", likes: 5},
         {message: "What is your favorite singer?", likes: 33},
@@ -34,6 +36,12 @@ const contentReducer = (state = initialState, action) => {
                 newPostText: action.newText
             };
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            };
+        }
         default:
             return state;
     }
@@ -46,4 +54,9 @@ export const updateNewPostTextActionCreator = (text) =>
     ({
         type: UPDATE_NEW_POST_TEXT,
         newText: text
+    });
+export const setUserProfile = (profile) =>
+    ({
+        type: SET_USER_PROFILE,
+        profile: profile
     });
