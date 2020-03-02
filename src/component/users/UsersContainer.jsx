@@ -8,34 +8,31 @@ import {
     unFollow
 } from "../../redux/users-reducer";
 import React from "react";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../preloader/Preloader";
 import Pagination from "../../common/pagging/Pagination";
+import {UserApi} from "../../dal/api";
 
 class UsersContainer extends React.Component {
 
-    getUsers = (page = this.props.currentPage) => {
-        axios
-            .get(`http://localhost:8080/users?page=${page}&count=${this.props.pageSize}`,  {
-                withCredentials: true
-            })
-            .then(response => {
+    getUsersPage = (page = this.props.currentPage) => {
+        UserApi.getUsers(page, this.props.pageSize)
+            .then(data => {
                 this.props.setToggleIsFetching(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.count)
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.count)
             });
     };
 
     onPageChanged = (page) => {
         this.props.setToggleIsFetching(true);
         this.props.changedUsersPage(page);
-        this.getUsers(page);
+        this.getUsersPage(page);
     };
 
     componentDidMount() {
         this.props.setToggleIsFetching(true);
-        this.getUsers();
+        this.getUsersPage()
     }
 
 

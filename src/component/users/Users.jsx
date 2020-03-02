@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./User.module.css"
 import {NavLink} from "react-router-dom";
+import {UserApi} from "../../dal/api";
 
 let Users = (props) => {
 
@@ -14,12 +15,27 @@ let Users = (props) => {
                                 <img alt="" className={styles.ava} src={u.ava}/>
                             </NavLink>
                         </div>
-                    <div> {u.followed ? <button onClick={() => {
-                            props.unFollow(u.id)
-                        }}>UnFollow</button>
+                    <div> {u.followed
+                        ? <button onClick={() => {UserApi.unFollowUser(u.id)
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        props.unFollow(u.id)
+                                    }
+                                });
+                        }
+
+                        }>UnFollow</button>
                         : <button onClick={() => {
-                            props.follow(u.id)
-                        }}>Follow</button>}
+                            UserApi.followUser(u.id)
+                                .then(response => {
+                                    if (response.status === 200) {
+                                        props.follow(u.id)
+                                    }
+                                });
+
+                            }
+
+                        }>Follow</button>}
                     </div>
                     </span>
                 <span>
