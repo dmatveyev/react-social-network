@@ -1,3 +1,5 @@
+import {UserApi} from "../dal/api";
+
 const ADD_NEW_USER = 'ADD_NEW_USER';
 const UPDATE_USER_INFO = 'ADD_NEW_USER';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
@@ -24,11 +26,12 @@ const usersReducer = (state = initialState, action) => {
             break;
         case UPDATE_USER_INFO:
             break;
-        case SET_USERS:
+        case SET_USERS: {
             return {
                 ...state,
                 users: action.users
             };
+        }
         case FOLLOW: {
             return {
                 ...state,
@@ -80,7 +83,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id=> id !== action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId)
             };
         }
         default:
@@ -90,6 +93,46 @@ const usersReducer = (state = initialState, action) => {
 
 
 export default usersReducer;
+
+export const getUsers = (page, pageSize) => {
+    return (dispatch) => {
+        dispatch(setToggleIsFetching(true));
+        UserApi.getUsers(page, pageSize)
+            .then(data => {
+                dispatch(setToggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.count));
+            });
+    };
+};
+
+export const followUser = (userId) => {
+
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId));
+        UserApi.followUser(userId)
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(follow(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId));
+            });
+    }
+};
+
+export const unFollowUser = (userId) => {
+
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId));
+        UserApi.unFollowUser(userId)
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(unFollow(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId));
+            });
+    }
+};
 
 export const follow = (userId) =>
     ({
