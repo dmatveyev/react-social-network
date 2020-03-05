@@ -20,9 +20,7 @@ export const UserApi = {
         return instance
             .get(`profile/${userId}`)
     },
-    authMe () {
-        return instance.get(`auth/me`);
-    },
+
     unFollowUser (userId) {
         return instance
             .delete(`follow/${userId}`)
@@ -30,6 +28,12 @@ export const UserApi = {
     followUser (userId) {
         return instance
             .post(`follow/${userId}`, {})
+    }
+};
+
+export const AuthApi = {
+    authMe () {
+        return instance.get(`auth/me`);
     }
 };
 

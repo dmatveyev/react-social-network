@@ -1,3 +1,5 @@
+import {UserApi} from "../dal/api";
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -48,6 +50,19 @@ const contentReducer = (state = initialState, action) => {
 };
 
 export default contentReducer;
+
+export const getProfile = (userId) => {
+
+    return (dispatch) => {
+        if (!userId) {
+            userId = 2;
+        }
+        UserApi.getUserProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data));
+            });
+    }
+};
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (text) =>

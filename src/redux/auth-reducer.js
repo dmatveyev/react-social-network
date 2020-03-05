@@ -1,5 +1,6 @@
-const SET_USER_DATA = 'SET_USER_DATA';
+import {AuthApi} from "../dal/api";
 
+const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
     id: null,
@@ -24,8 +25,22 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
-
 export default authReducer;
+
+export const authMe = () => {
+
+    return (dispatch) => {
+        AuthApi.authMe()
+            .then(response => {
+                if (response.status === 200) {
+                    let {id, fullName, status, ava} = response.data;
+                    dispatch(setAuthUserData(id,
+                        fullName,
+                        status, ava))
+                }
+            })
+    }
+};
 
 export const setAuthUserData = (id, fullName, status, ava) =>
     ({
