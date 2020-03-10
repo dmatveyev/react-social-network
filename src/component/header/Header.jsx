@@ -9,7 +9,7 @@ const Header = (props) => {
         <div className={styles.loginBlock}>
             {props.isAuth ? <div>
                     {props.fullName}
-                    <img src={props.ava} className={styles.ava}/>
+                    <img alt="" src={props.ava} className={styles.ava}/>
             </div>:
             <NavLink to={'/login'}>Login</NavLink>}
         </div>
