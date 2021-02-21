@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import {setUserProfile} from "../redux/content-reducer";
 
 const instance = axios.create(
     {

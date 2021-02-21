@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./ProfileInfo.module.css"
 import {connect} from "react-redux";
 import Preloader from "../../preloader/Preloader";
+import ProfileStatus from "./ProfileStatus"
 
 let Info = (props) => {
-    let iDesc = props.infoDesc;
     let profile = props.profile;
     if (!profile) {
         return <Preloader />
@@ -12,10 +12,11 @@ let Info = (props) => {
 
     return (
         <div>
-            <div>
+           {/* <div>
                 <img alt="" src={iDesc.headerTheme}/>
                 {iDesc.description}
-            </div>
+            </div>*/}
+            <ProfileStatus status={"Hello me!!!"}/>
             <div className={styles.description}>
                 <img alt="" className={styles.ava} src= {profile.ava} />
                 {profile.id}
